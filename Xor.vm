@@ -1,1 +1,15 @@
+push argument 0
+push argument 1
+and 
+not
+pop static 0
 
+push argument 0
+push argument 1
+or
+pop static 1
+
+push static 0
+push static 1
+and
+pop argument 2
