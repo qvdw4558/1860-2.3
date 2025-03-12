@@ -1,0 +1,66 @@
+label signCheck                     //Checks sign and goes to respective function
+push argument 0
+push constant 0
+gt
+if-goto positive
+
+push argument 0
+push constant 0
+lt
+if-goto negative
+
+push argument 0
+push constant 0
+eq
+if-goto zero
+
+label positive                      //Puts value in argument[1]
+push argument 0
+pop argument 1
+goto multiplier
+
+label negative                      //Makes value positive and puts in argument[1]
+push argument 0
+not
+push constant 1
+add
+pop argument 1
+goto multiplier
+
+
+label zero                          //puts 0 to the bottom of the stack and goes to END
+push constant 0
+goto END
+
+
+label multiplier                    //multiplies the value by itself
+label counterInit                   //Initialises argument[2] as the counter
+push argument 1
+pop argument 2
+label adderInit                     //Initialises argument[3] as running count
+push constant 0
+pop argument 3
+goto loop
+
+label loop
+label adder                    //Uses argument[3] as the running count
+push argument 3
+push argument 1
+add
+pop argument 3
+
+label counter               //Removes 1 from the counter
+push argument 2
+push constant 1
+sub
+pop argument 2
+
+push argument 2             //If the counter is 0 go to end, else restart loop
+push constant 0
+eq
+if-goto END
+goto loop
+
+
+label END
+push argument 3
