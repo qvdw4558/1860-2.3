@@ -1,0 +1,75 @@
+label edgeCase                  //If argument[0] = -32768, go to flag
+    push constant 32767  
+    not              
+    push argument 0
+    eq
+    if-goto flag
+
+
+label checkSign                 //If argument[0] < 0, go to negative
+    push argument 0   
+    push constant 0
+    lt 
+    if-goto negative
+
+    push argument 0             //If argument[0] > 0, go to positive
+    push constant 0
+    gt
+    if-goto positive
+
+    goto zero                   //else, go to zero
+    
+
+label positive                  //argument[0] --> argument[1]
+    push argument 0
+    pop argument 1
+
+    push constant 0             //0 --> argument[2]
+    pop argument 2
+
+    push constant 0             //0 --> argument[3]
+    pop argument 3
+
+    goto END
+
+label negative                  //neg(argument[0]) --> argument[1]
+    push argument 0
+    not
+    push constant 1
+    add
+    pop argument 1
+
+    push constant 1             //1 --> argument[2]
+    pop argument 2 
+
+    push constant 0             //0 --> argument[3]             
+    pop argument 3
+    goto END
+
+
+label zero
+    push constant 0             //0 --> argument[1]
+    pop argument 1
+
+    push constant 0             //0 --> argument[2]
+    pop argument 2 
+
+    push constant 0             //0 --> argument[3]             
+    pop argument 3
+    goto END
+
+
+
+label flag
+    push constant 0             //0 --> argument[1]
+    pop argument 1
+
+    push constant 0             //0 --> argument[2]
+    pop argument 2 
+
+    push constant 1             //1 --> argument[3]
+    pop argument 3
+    goto END
+
+
+label END
